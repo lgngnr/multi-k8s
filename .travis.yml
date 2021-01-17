@@ -1,0 +1,21 @@
+sudo: required
+services:
+ - docker
+
+before_install:
+ - docker build -t lgngr/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+ - docker run lgngr/react-test npm test -- --coverage
+
+after_success:
+ - docker build -t lgngr/multi-client ./client
+ - docker build -t lgngr/multi-nginx ./nginx
+ - docker build -t lgngr/multi-server ./server
+ - docker build -t lgngr/multi-worker ./worker
+ # LOGIN AND PUSH IMAGES TO DOCKER HUB
+ - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
+ - docker push lgngr/multi-client
+ - docker push lgngr/multi-nginx
+ - docker push lgngr/multi-server
+ - docker push lgngr/multi-worker
