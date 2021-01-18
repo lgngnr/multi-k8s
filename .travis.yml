@@ -17,8 +17,20 @@ after_success:
  # LOGIN AND PUSH IMAGES TO DOCKER HUB
  - echo "login to dockerhub"
  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
- - echo "pusching image to dockerhub"
+ - echo "pushing image to dockerhub"
  - docker push lgngr/multi-client
  - docker push lgngr/multi-nginx
  - docker push lgngr/multi-server
  - docker push lgngr/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: multi-docker
+  env: Multidocker-env
+  bucket_name: elasticbeanstalk-us-east-2-312216413616
+  pucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
