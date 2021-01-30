@@ -25,7 +25,7 @@ pgClient.on('error', () => {
 
 // IF EMPTY NEED AT LEAST A TABLE
 pgClient.query("CREATE TABLE IF NOT EXISTS values(number int)")
-        .catch(e=>console.log(e));
+        .catch(e=>console.error("PORSTGRESS CLIENT ERROR:",e));
 
 // SETTING UP REDIS CLIENT
 const redisClient = redis.createClient({
