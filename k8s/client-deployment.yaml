@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
        - name: client
-         image: lgngr/multi-client:v1.02
+         image: lgngr/multi-client
          ports:
           - containerPort: 3000

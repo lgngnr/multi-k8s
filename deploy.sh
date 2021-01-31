@@ -15,7 +15,7 @@ echo "APPLY K8S"
 kubectl apply -f k8s
 
 echo "SET IMAGES"
-kubectl set image deployments/client-deployment server=lgngr/multi-client:$SHA
-kubectl set image deployments/server-deployment client=lgngr/multi-server:$SHA
+kubectl set image deployments/client-deployment client=lgngr/multi-client:$SHA
+kubectl set image deployments/server-deployment server=lgngr/multi-server:$SHA
 kubectl set image deployments/worker-deployment worker=lgngr/multi-worker:$SHA
 
